@@ -1,0 +1,74 @@
+{% extends "layouts/main.html.twig" %}
+
+{% block title %}Editar Orden #{{ operation.id }}{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h2 class="fw-bold mb-1"><i class="bi bi-pencil-square text-primary me-2"></i>Editar Orden de Servicio #{{ operation.id }}</h2>
+  </div>
+  <a href="{{ base_url }}/operation/{{ operation.id }}" class="btn btn-outline-secondary fw-bold">
+    <i class="bi bi-arrow-left me-2"></i> Volver a Detalle
+  </a>
+</div>
+
+<div class="card border-0 shadow-sm rounded-3">
+  <div class="card-body p-4">
+    <form action="{{ base_url }}/operation/{{ operation.id }}/update" method="POST">
+      {{ csrf_field() }}
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label fw-bold">Dispositivo / Equipo *</label>
+          <select name="device_id" class="form-select select2" required>
+            <option value="">-- Seleccionar Dispositivo --</option>
+            {% for d in devices %}
+              <option value="{{ d.id }}" {% if operation.device_id == d.id %}selected{% endif %}>
+                {{ d.plate }} - {{ d.brand }} {{ d.model }}{% if d.getContact() %} ({{ d.getContact().name }} {{ d.getContact().lastname }}){% endif %}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label fw-bold">Cliente *</label>
+          <select name="contact_id" class="form-select select2" required>
+            <option value="">-- Seleccionar Cliente --</option>
+            {% for c in clients %}
+              <option value="{{ c.id }}" {% if operation.contact_id == c.id %}selected{% endif %}>
+                {{ c.name }} {{ c.lastname }} ({{ c.company|default('Particular') }})
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Estado Actual</label>
+          <select name="status_id" class="form-select">
+            {% for st in statuses %}
+              <option value="{{ st.id }}" {% if operation.status_id == st.id %}selected{% endif %}>{{ st.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Fecha de Inicio</label>
+          <input type="date" name="start_date" class="form-control" value="{{ operation.start_date }}">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Fecha Estimada de Entrega</label>
+          <input type="date" name="end_date" class="form-control" value="{{ operation.end_date }}">
+        </div>
+
+        <div class="col-md-12">
+          <label class="form-label fw-bold">Motivo de Ingreso / Diagnóstico *</label>
+          <textarea name="description" class="form-control" rows="3" required>{{ operation.description }}</textarea>
+        </div>
+      </div>
+
+      <div class="mt-4 text-end border-top pt-3">
+        <button type="submit" class="btn btn-primary px-4 fw-bold">
+          <i class="bi bi-save me-2"></i> Actualizar Orden
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

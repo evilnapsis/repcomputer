@@ -1,0 +1,109 @@
+{% extends "layouts/main.html.twig" %}
+
+{% block title %}Editar Dispositivo{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <div>
+    <h2 class="fw-bold text-dark mb-1">Editar Dispositivo #{{ device.plate }}</h2>
+  </div>
+  <a href="{{ base_url }}/devices" class="btn btn-outline-secondary fw-bold">
+    <i class="bi bi-arrow-left me-1"></i> Volver a la Lista
+  </a>
+</div>
+
+<div class="card border-0 shadow-sm rounded-3">
+  <div class="card-body p-4">
+    <form action="{{ base_url }}/device/{{ device.id }}/update" method="POST">
+      {{ csrf_field() }}
+
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Folio / ID Registro *</label>
+          <input type="text" name="plate" class="form-control" value="{{ device.plate }}" required>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Tipo de Dispositivo *</label>
+          <select name="type" class="form-select" required>
+            <option value="Smartphone" {% if device.type == 'Smartphone' %}selected{% endif %}>Smartphone / Teléfono Móvil</option>
+            <option value="Tablet" {% if device.type == 'Tablet' %}selected{% endif %}>Tablet</option>
+            <option value="Consola de Videojuegos" {% if device.type == 'Consola de Videojuegos' %}selected{% endif %}>Consola de Videojuegos (PS5, Xbox, Switch)</option>
+            <option value="Laptop" {% if device.type == 'Laptop' %}selected{% endif %}>Laptop / Portátil</option>
+            <option value="PC Escritorio" {% if device.type == 'PC Escritorio' %}selected{% endif %}>PC de Escritorio / Servidor</option>
+            <option value="Línea Blanca" {% if device.type == 'Línea Blanca' %}selected{% endif %}>Electrodoméstico / Línea Blanca</option>
+            <option value="Smartwatch" {% if device.type == 'Smartwatch' %}selected{% endif %}>Smartwatch / Wearable</option>
+            <option value="Otro" {% if device.type == 'Otro' %}selected{% endif %}>Otro Dispositivo Electrónico</option>
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Cliente / Propietario *</label>
+          <select name="contact_id" class="form-select select2" required>
+            <option value="">-- Seleccionar Cliente --</option>
+            {% for c in clients %}
+              <option value="{{ c.id }}" {% if c.id == device.contact_id %}selected{% endif %}>{{ c.name }} {{ c.lastname }} ({{ c.company|default('Particular') }})</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Marca *</label>
+          <input type="text" name="brand" class="form-control" value="{{ device.brand }}" required>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Modelo *</label>
+          <input type="text" name="model" class="form-control" value="{{ device.model }}" required>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Número de Serie (S/N)</label>
+          <input type="text" name="vin" class="form-control" value="{{ device.vin }}">
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-bold">IMEI <span class="text-muted fw-normal">(Opcional)</span></label>
+          <input type="text" name="imei" class="form-control" value="{{ device.imei }}">
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Dirección MAC</label>
+          <input type="text" name="mac_address" class="form-control" value="{{ device.mac_address }}">
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Capacidad / Almacenamiento</label>
+          <input type="text" name="capacity" class="form-control" value="{{ device.capacity }}">
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Color / Acabado</label>
+          <input type="text" name="color" class="form-control" value="{{ device.color }}">
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Año de Fabricación / Compra</label>
+          <input type="number" name="year" class="form-control" value="{{ device.year }}">
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Horas de Uso</label>
+          <input type="number" name="hours_meter" class="form-control" value="{{ device.hours_meter }}">
+        </div>
+
+        <div class="col-12">
+          <label class="form-label fw-bold">Diagnóstico Inicial / Observaciones</label>
+          <textarea name="description" class="form-control" rows="3">{{ device.description }}</textarea>
+        </div>
+      </div>
+
+      <div class="mt-4 text-end">
+        <button type="submit" class="btn btn-warning text-white fw-bold px-4">
+          <i class="bi bi-save me-1"></i> Actualizar Dispositivo
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

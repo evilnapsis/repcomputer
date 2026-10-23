@@ -1,0 +1,72 @@
+{% extends "layouts/main.html.twig" %}
+
+{% block title %}Usuarios del Sistema{% endblock %}
+
+{% block content %}
+<div class="d-flex align-items-center justify-content-between mb-2">
+  <div>
+    <h2 class="fw-bold text-dark mb-1">Usuarios del Sistema</h2>
+  </div>
+</div>
+
+<div class="mb-4">
+  <a href="{{ base_url }}/user/new" class="btn btn-primary fw-bold px-3 shadow-sm">
+    <i class="bi bi-person-plus-fill me-2"></i> Nuevo Usuario
+  </a>
+</div>
+
+<div class="card border-0 shadow-sm rounded-3">
+  <div class="card-body p-4">
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>Nombre completo</th>
+            <th>Email</th>
+            <th>Tipo de Acceso</th>
+            <th class="text-center">Estado</th>
+            <th class="text-center" style="width: 100px;">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for u in users %}
+            <tr>
+              <td><span class="fw-bold">{{ u.name }} {{ u.lastname }}</span></td>
+              <td>{{ u.email }}</td>
+              <td>
+                {% if u.type == 1 %}
+                  <span class="badge bg-primary shadow-sm">Administrador</span>
+                {% endif %}
+              </td>
+              <td class="text-center">
+                {% if u.is_active == 1 %}
+                  <span class="badge bg-success shadow-sm"><i class="bi bi-check-circle me-1"></i> Activo</span>
+                {% else %}
+                  <span class="badge bg-danger shadow-sm"><i class="bi bi-x-circle me-1"></i> Inactivo</span>
+                {% endif %}
+              </td>
+              <td class="text-center">
+                <a href="{{ base_url }}/user/{{ u.id }}/edit" class="btn btn-warning btn-sm text-white me-1" title="Editar">
+                  <i class="bi bi-pencil-square"></i>
+                </a>
+                {% if u.id != session.user_id %}
+                  <form action="{{ base_url }}/user/{{ u.id }}/delete" method="POST" class="d-inline" onsubmit="return confirm('¿Seguro de eliminar este usuario?');">
+                    {{ csrf_field() }}
+                    <button type="submit" class="btn btn-danger btn-sm" title="Eliminar">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </form>
+                {% endif %}
+              </td>
+            </tr>
+          {% else %}
+            <tr>
+              <td colspan="5" class="text-center py-4 text-muted">No hay usuarios registrados.</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

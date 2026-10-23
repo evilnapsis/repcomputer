@@ -1,0 +1,80 @@
+{% extends "layouts/main.html.twig" %}
+
+{% block title %}Editar Contacto{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h2 class="fw-bold mb-1"><i class="bi bi-pencil-square text-primary me-2"></i>Editar Contacto</h2>
+  </div>
+  <a href="{{ base_url }}/contacts" class="btn btn-outline-secondary fw-bold">
+    <i class="bi bi-arrow-left me-2"></i> Volver a Contactos
+  </a>
+</div>
+
+<div class="card border-0 shadow-sm rounded-3">
+  <div class="card-body p-4">
+    <form action="{{ base_url }}/contact/{{ contact.id }}/update" method="POST">
+      {{ csrf_field() }}
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Nombre(s) *</label>
+          <input type="text" name="name" class="form-control" value="{{ contact.name }}" required>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Apellidos</label>
+          <input type="text" name="lastname" class="form-control" value="{{ contact.lastname }}">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Empresa / Razón Social</label>
+          <input type="text" name="company" class="form-control" value="{{ contact.company }}">
+        </div>
+
+        <div class="col-md-3">
+          <label class="form-label fw-bold">Estado *</label>
+          <select name="is_active" class="form-select">
+            <option value="1" {% if contact.is_active == 1 %}selected{% endif %}>Activo</option>
+            <option value="0" {% if contact.is_active == 0 %}selected{% endif %}>Inactivo</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label fw-bold">Teléfono Principal *</label>
+          <input type="text" name="phone" class="form-control" value="{{ contact.phone }}" required>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label fw-bold">Teléfono Secundario</label>
+          <input type="text" name="phone2" class="form-control" value="{{ contact.phone2 }}">
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label fw-bold">Correo Electrónico</label>
+          <input type="email" name="email" class="form-control" value="{{ contact.email }}">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label fw-bold">Dirección</label>
+          <input type="text" name="address" class="form-control" value="{{ contact.address }}">
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Ciudad</label>
+          <input type="text" name="city" class="form-control" value="{{ contact.city }}">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Código Postal</label>
+          <input type="text" name="cp" class="form-control" value="{{ contact.cp }}">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Descripción / Observaciones</label>
+          <input type="text" name="description" class="form-control" value="{{ contact.description }}">
+        </div>
+      </div>
+
+      <div class="mt-4 text-end border-top pt-3">
+        <button type="submit" class="btn btn-primary px-4 fw-bold">
+          <i class="bi bi-save me-2"></i> Actualizar Contacto
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

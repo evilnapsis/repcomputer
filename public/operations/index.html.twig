@@ -1,0 +1,96 @@
+{% extends "layouts/main.html.twig" %}
+
+{% block title %}Órdenes de Servicio{% endblock %}
+
+{% block content %}
+<div class="d-flex align-items-center justify-content-between mb-2">
+  <div>
+    <h2 class="fw-bold text-dark mb-1">Órdenes de Servicio</h2>
+  </div>
+</div>
+
+<div class="mb-4">
+  <a href="{{ base_url }}/operation/new" class="btn btn-primary fw-bold px-3 shadow-sm">
+    <i class="bi bi-plus-lg me-2"></i> Nueva Orden
+  </a>
+</div>
+
+<div class="card border-0 shadow-sm rounded-3">
+  <div class="card-body p-4">
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>Folio</th>
+            <th>Dispositivo / Equipo</th>
+            <th>Cliente</th>
+            <th>Estado</th>
+            <th>Total</th>
+            <th>Cobro</th>
+            <th>Fecha</th>
+            <th class="text-center" style="width: 120px;">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for op in operations %}
+            {% set device = op.getDevice() %}
+            {% set contact = op.getContact() %}
+            {% set status = op.getStatus() %}
+            {% set paid = paid_map[op.id]|default(0) %}
+            {% set balance = op.total - paid %}
+            <tr>
+              <td><span class="fw-bold">#{{ "%05d"|format(op.id) }}</span></td>
+              <td>
+                {% if device %}
+                  <span class="badge bg-dark">{{ device.plate }}</span><br>
+                  <small class="text-muted">{{ device.brand }} {{ device.model }}</small>
+                {% else %}
+                  <span class="text-muted small">Sin dispositivo</span>
+                {% endif %}
+              </td>
+              <td>{{ contact ? contact.name ~ " " ~ contact.lastname : "Sin contacto" }}</td>
+              <td>
+                {% if status %}
+                  <span class="badge shadow-sm" style="background-color: {{ status.color }}; color: #fff;">{{ status.name }}</span>
+                {% endif %}
+              </td>
+              <td><span class="fw-bold text-success">${{ op.total|number_format(2, '.', ',') }}</span></td>
+              <td>
+                {% if op.total <= 0 %}
+                  <span class="badge bg-light text-muted">Sin servicios</span>
+                {% elseif paid <= 0 %}
+                  <span class="badge bg-danger">Sin pagos</span>
+                {% elseif balance > 0 %}
+                  <span class="badge bg-warning text-dark">Abonada</span>
+                  <small class="d-block text-danger">Saldo ${{ balance|number_format(2, '.', ',') }}</small>
+                {% else %}
+                  <span class="badge bg-success">Pagada</span>
+                {% endif %}
+              </td>
+              <td><small>{{ op.created_at|date("d/m/Y") }}</small></td>
+              <td class="text-center">
+                <a href="{{ base_url }}/operation/{{ op.id }}" class="btn btn-primary btn-sm me-1" title="Detalles">
+                  <i class="bi bi-eye"></i>
+                </a>
+                <a href="{{ base_url }}/operation/{{ op.id }}/edit" class="btn btn-warning btn-sm text-white me-1" title="Editar">
+                  <i class="bi bi-pencil-square"></i>
+                </a>
+                <form action="{{ base_url }}/operation/{{ op.id }}/delete" method="POST" class="d-inline" onsubmit="return confirm('¿Seguro de eliminar esta orden de servicio?');">
+                  {{ csrf_field() }}
+                  <button type="submit" class="btn btn-danger btn-sm" title="Eliminar">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </form>
+              </td>
+            </tr>
+          {% else %}
+            <tr>
+              <td colspan="8" class="text-center py-4 text-muted">No hay órdenes de servicio registradas.</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

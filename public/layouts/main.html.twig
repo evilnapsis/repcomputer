@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <base href="{{ base_url }}/">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="description" content="RepComputer - Sistema de Gestión de Taller y Servicios Técnicos">
+    <meta name="author" content="Evilnapsis">
+    <title>RepComputer - {% block title %}Dashboard{% endblock %}</title>
+    <!-- Vendors & Application Styles -->
+    <link rel="stylesheet" href="assets/vendor/simplebar/css/simplebar.css">
+    <link rel="stylesheet" href="assets/css/vendors/simplebar.css">
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/custom-inventio.css" rel="stylesheet">
+    <script src="assets/vendor/jquery/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendor/datatables/datatables.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendor/select2/select2.min.css">
+    <script type="text/javascript" src="assets/vendor/sweetalert/sweetalert2.all.min.js"></script>
+  </head>
+  <body>
+    <div class="sidebar sidebar-fixed border-end bg-white" id="sidebar">
+      <div class="sidebar-header border-bottom d-flex align-items-center justify-content-between px-3">
+        <a href="{{ base_url }}/home" class="sidebar-brand text-decoration-none d-flex align-items-center">
+          <span class="sidebar-brand-full" style="font-size:20px; font-weight: 800; letter-spacing: -0.5px; color: #0f172a;"><i class="bi bi-pc-display me-2" style="color: #15803d;"></i>REP<span style="color: #16a34a;">COMPUTER</span></span>
+          <span class="sidebar-brand-narrow fw-bold" style="color: #15803d; font-size: 20px;">RC</span>
+        </a>
+        <button class="btn-close d-lg-none" type="button" data-coreui-dismiss="offcanvas" aria-label="Close" onclick="coreui.Sidebar.getInstance(document.querySelector(&quot;#sidebar&quot;)).toggle()"></button>
+      </div>
+      <ul class="sidebar-nav" data-coreui="navigation" data-simplebar="">
+        <li class="nav-item">
+          <a class="nav-link{% if curr_path == '/' or curr_path == '/home' %} active{% endif %}" href="{{ base_url }}/home">
+            <i class="nav-icon bi bi-speedometer2"></i> Inicio
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link{% if curr_path starts with '/operation' %} active{% endif %}" href="{{ base_url }}/operations">
+            <i class="nav-icon bi bi-tools"></i> Órdenes de Servicio
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link{% if curr_path starts with '/device' %} active{% endif %}" href="{{ base_url }}/devices">
+            <i class="nav-icon bi bi-laptop"></i> Dispositivos
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link{% if curr_path starts with '/contact' %} active{% endif %}" href="{{ base_url }}/contacts">
+            <i class="nav-icon bi bi-people"></i> Clientes
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link{% if curr_path starts with '/service' %} active{% endif %}" href="{{ base_url }}/services">
+            <i class="nav-icon bi bi-briefcase"></i> Catálogo de Servicios
+          </a>
+        </li>
+
+        <li class="nav-group{% if curr_path starts with '/reports' %} show{% endif %}">
+          <a class="nav-link nav-group-toggle" href="#">
+            <i class="nav-icon bi bi-bar-chart-line"></i> Reportes
+          </a>
+          <ul class="nav-group-items">
+            <li class="nav-item">
+              <a class="nav-link{% if curr_path starts with '/reports' and ('opt=payments' not in curr_query) %} active{% endif %}" href="{{ base_url }}/reports?opt=service_orders">
+                <i class="nav-icon bi bi-file-earmark-bar-graph"></i> Órdenes de Servicio
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link{% if curr_path starts with '/reports' and ('opt=payments' in curr_query) %} active{% endif %}" href="{{ base_url }}/reports?opt=payments">
+                <i class="nav-icon bi bi-cash-stack"></i> Ingresos / Pagos
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link{% if curr_path starts with '/settings' %} active{% endif %}" href="{{ base_url }}/settings">
+            <i class="nav-icon bi bi-gear-wide-connected"></i> Mi Taller
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link{% if curr_path starts with '/user' %} active{% endif %}" href="{{ base_url }}/users">
+            <i class="nav-icon bi bi-people-fill"></i> Usuarios
+          </a>
+        </li>
+      </ul>
+      <div class="sidebar-footer border-top d-none d-md-flex">
+        <button class="sidebar-toggler" type="button" data-coreui-toggle="unfoldable"></button>
+      </div>
+    </div>
+    <div class="wrapper d-flex flex-column min-vh-100">
+      <header class="header header-sticky p-0 mb-4 shadow-sm" style="height: 4rem; min-height: 4rem;">
+        <div class="container-fluid border-bottom px-4 h-100 d-flex align-items-center">
+          <button class="header-toggler" type="button" onclick="coreui.Sidebar.getInstance(document.querySelector('#sidebar')).toggle()" style="margin-inline-start: -14px;">
+            <i class="bi bi-list fs-3"></i>
+          </button>
+
+          <ul class="header-nav ms-auto">
+          </ul>
+          <ul class="header-nav">
+            <li class="nav-item py-1">
+              <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link py-0 pe-0" data-coreui-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                <div class="avatar avatar-md bg-primary text-white d-flex align-items-center justify-content-center rounded-circle fw-bold">
+                  {{ curr_user.name|default('U')|slice(0, 1) }}{{ curr_user.lastname|default('')|slice(0, 1) }}
+                </div>
+              </a>
+              <div class="dropdown-menu dropdown-menu-end pt-0 shadow border-0">
+                <div class="dropdown-header bg-light text-body-secondary fw-semibold rounded-top mb-2">Mi Cuenta</div>
+                <div class="px-3 py-2">
+                  <div class="fw-bold">{{ curr_user.name }} {{ curr_user.lastname }}</div>
+                  <div class="small text-muted">Administrador</div>
+                </div>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{{ base_url }}/profile">
+                  <i class="bi bi-person me-2"></i> Mi Perfil
+                </a>
+                <a class="dropdown-item" href="{{ base_url }}/settings">
+                  <i class="bi bi-gear me-2"></i> Ajustes Taller
+                </a>
+                <a class="dropdown-item" href="{{ base_url }}/logout">
+                  <i class="bi bi-box-arrow-right me-2 text-danger"></i> Cerrar sesión
+                </a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </header>
+      <div class="body flex-grow-1">
+        <div class="container-fluid px-4">
+          {% block content %}{% endblock %}
+        </div>
+      </div>
+      <footer class="footer px-4 border-top-0 bg-transparent text-muted small mt-4">
+        <div>RepComputer © 2026. Sistema de Gestión de Taller y Servicios Técnicos</div>
+        <div class="ms-auto">Edición Gratuita v1.0</div>
+      </footer>
+    </div>
+    <!-- CoreUI and necessary plugins-->
+    <script src="assets/vendor/@coreui/coreui/js/coreui.bundle.min.js"></script>
+    <script src="assets/vendor/simplebar/js/simplebar.min.js"></script>
+    <script src="assets/vendor/chart.js/js/chart.min.js"></script>
+    <script src="assets/vendor/datatables/datatables.min.js"></script>
+    <script src="assets/vendor/select2/select2.full.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $(".table:has(thead)").not(".no-datatable").DataTable({
+          "responsive": true,
+          "language": {
+            "url": "{{ base_url }}/assets/vendor/datatables/esmx.json"
+          }
+        });
+
+        if ($.fn.select2) {
+          $('.select2').each(function() {
+            $(this).select2({
+              width: '100%',
+              dropdownParent: $(this).parent()
+            });
+          });
+        }
+
+        {% if flash_success %}
+          Swal.fire({
+            title: '¡Éxito!',
+            text: {{ flash_success|json_encode|raw }},
+            icon: 'success',
+            confirmButtonText: 'Aceptar',
+            timer: 4000,
+            timerProgressBar: true,
+            confirmButtonColor: '#0d6efd'
+          });
+        {% endif %}
+
+        {% if flash_updated %}
+          Swal.fire({
+            title: '¡Éxito!',
+            text: {{ flash_updated|json_encode|raw }},
+            icon: 'success',
+            confirmButtonText: 'Aceptar',
+            timer: 4000,
+            timerProgressBar: true,
+            confirmButtonColor: '#0d6efd'
+          });
+        {% endif %}
+
+        {% if flash_deleted %}
+          Swal.fire({
+            title: '¡Éxito!',
+            text: {{ flash_deleted|json_encode|raw }},
+            icon: 'success',
+            confirmButtonText: 'Aceptar',
+            timer: 4000,
+            timerProgressBar: true,
+            confirmButtonColor: '#0d6efd'
+          });
+        {% endif %}
+
+        {% if flash_error %}
+          Swal.fire({
+            title: '¡Error!',
+            text: {{ flash_error|json_encode|raw }},
+            icon: 'error',
+            confirmButtonText: 'Aceptar',
+            timer: 4000,
+            timerProgressBar: true,
+            confirmButtonColor: '#dc3545'
+          });
+        {% endif %}
+
+        {% for field, message in errors|default([]) %}
+          Swal.fire({
+            title: 'Error',
+            text: {{ message|json_encode|raw }},
+            icon: 'error',
+            confirmButtonText: 'Aceptar',
+            confirmButtonColor: '#dc3545'
+          });
+        {% endfor %}
+      });
+    </script>
+    {% block scripts %}{% endblock %}
+  </body>
+</html>

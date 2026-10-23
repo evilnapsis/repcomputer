@@ -1,0 +1,64 @@
+{% extends "layouts/main.html.twig" %}
+
+{% block title %}Editar Usuario{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h2 class="fw-bold mb-1"><i class="bi bi-pencil-square text-primary me-2"></i>Editar Usuario</h2>
+  </div>
+  <a href="{{ base_url }}/users" class="btn btn-outline-secondary fw-bold">
+    <i class="bi bi-arrow-left me-2"></i> Volver a Usuarios
+  </a>
+</div>
+
+<div class="card border-0 shadow-sm rounded-3 col-md-8 mx-auto">
+  <div class="card-body p-4">
+    <form action="{{ base_url }}/user/{{ user.id }}/update" method="POST">
+      {{ csrf_field() }}
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label fw-bold">Nombre(s) *</label>
+          <input type="text" name="name" class="form-control" value="{{ user.name }}" required>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label fw-bold">Apellidos</label>
+          <input type="text" name="lastname" class="form-control" value="{{ user.lastname }}">
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label fw-bold">Nombre de Usuario *</label>
+          <input type="text" name="username" class="form-control" value="{{ user.username }}" required>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label fw-bold">Correo Electrónico *</label>
+          <input type="email" name="email" class="form-control" value="{{ user.email }}" required>
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label fw-bold">Nueva Contraseña (Dejar en blanco para mantener actual)</label>
+          <input type="password" name="password" class="form-control" placeholder="••••••••">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label fw-bold">Rol</label>
+          <input type="text" class="form-control" value="Administrador" disabled>
+          <small class="text-muted">En esta edición todos los usuarios tienen permisos de administrador.</small>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label fw-bold">Estado</label>
+          <select name="is_active" class="form-select">
+            <option value="1" {% if user.is_active == 1 %}selected{% endif %}>Activo</option>
+            <option value="0" {% if user.is_active == 0 %}selected{% endif %}>Inactivo</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="mt-4 text-end border-top pt-3">
+        <button type="submit" class="btn btn-primary px-4 fw-bold">
+          <i class="bi bi-save me-2"></i> Actualizar Usuario
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends "layouts/main.html.twig" %}
+
+{% block title %}Nuevo Contacto{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h2 class="fw-bold mb-1"><i class="bi bi-person-plus-fill text-primary me-2"></i>Registrar Nuevo Contacto</h2>
+  </div>
+  <a href="{{ base_url }}/contacts" class="btn btn-outline-secondary fw-bold">
+    <i class="bi bi-arrow-left me-2"></i> Volver a Contactos
+  </a>
+</div>
+
+<div class="card border-0 shadow-sm rounded-3">
+  <div class="card-body p-4">
+    <form action="{{ base_url }}/contact/create" method="POST">
+      {{ csrf_field() }}
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Nombre(s) *</label>
+          <input type="text" name="name" class="form-control" placeholder="Juan" required>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Apellidos</label>
+          <input type="text" name="lastname" class="form-control" placeholder="Pérez">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Empresa / Razón Social</label>
+          <input type="text" name="company" class="form-control" placeholder="Transportes S.A.">
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Teléfono Principal *</label>
+          <input type="text" name="phone" class="form-control" placeholder="555-0000" required>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Teléfono Secundario</label>
+          <input type="text" name="phone2" class="form-control">
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label fw-bold">Correo Electrónico</label>
+          <input type="email" name="email" class="form-control" placeholder="cliente@ejemplo.com">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label fw-bold">Dirección</label>
+          <input type="text" name="address" class="form-control" placeholder="Calle, número, colonia">
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Ciudad</label>
+          <input type="text" name="city" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Código Postal</label>
+          <input type="text" name="cp" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Descripción / Observaciones</label>
+          <input type="text" name="description" class="form-control">
+        </div>
+      </div>
+
+      <div class="mt-4 text-end border-top pt-3">
+        <button type="submit" class="btn btn-primary px-4 fw-bold">
+          <i class="bi bi-save me-2"></i> Guardar Contacto
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends "layouts/main.html.twig" %}
+
+{% block title %}Catálogo de Servicios{% endblock %}
+
+{% block content %}
+<div class="d-flex align-items-center justify-content-between mb-2">
+  <div>
+    <h2 class="fw-bold text-dark mb-1">Catálogo de Servicios</h2>
+  </div>
+</div>
+
+<div class="d-flex align-items-center justify-content-between mb-4">
+  <div>
+    <a href="{{ base_url }}/service/new" class="btn btn-primary fw-bold px-3 shadow-sm">
+      <i class="bi bi-briefcase-fill me-2"></i> Nuevo Servicio
+    </a>
+  </div>
+</div>
+
+<div class="card border-0 shadow-sm rounded-3">
+  <div class="card-body p-4">
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>Nombre</th>
+            <th>Precio sugerido</th>
+            <th class="text-center">Estado</th>
+            <th class="text-center" style="width: 100px;">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for s in services %}
+            <tr>
+              <td><span class="fw-bold">{{ s.name }}</span></td>
+              <td><span class="fw-bold text-primary">${{ s.price|number_format(2, '.', ',') }}</span></td>
+              <td class="text-center">
+                {% if s.is_active == 1 %}
+                  <span class="badge bg-success shadow-sm">Activo</span>
+                {% else %}
+                  <span class="badge bg-danger shadow-sm">Inactivo</span>
+                {% endif %}
+              </td>
+              <td class="text-center">
+                <a href="{{ base_url }}/service/{{ s.id }}/edit" class="btn btn-warning btn-sm text-white me-1" title="Editar">
+                  <i class="bi bi-pencil-square"></i>
+                </a>
+                <form action="{{ base_url }}/service/{{ s.id }}/delete" method="POST" class="d-inline" onsubmit="return confirm('¿Seguro de eliminar este servicio?');">
+                  {{ csrf_field() }}
+                  <button type="submit" class="btn btn-danger btn-sm" title="Eliminar">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </form>
+              </td>
+            </tr>
+          {% else %}
+            <tr>
+              <td colspan="4" class="text-center py-4 text-muted">No hay servicios registrados.</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,109 @@
+{% extends "layouts/main.html.twig" %}
+
+{% block title %}Nuevo Dispositivo{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <div>
+    <h2 class="fw-bold text-dark mb-1">Registrar Nuevo Dispositivo / Equipo</h2>
+  </div>
+  <a href="{{ base_url }}/devices" class="btn btn-outline-secondary fw-bold">
+    <i class="bi bi-arrow-left me-1"></i> Volver a la Lista
+  </a>
+</div>
+
+<div class="card border-0 shadow-sm rounded-3">
+  <div class="card-body p-4">
+    <form action="{{ base_url }}/device/create" method="POST">
+      {{ csrf_field() }}
+
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Folio / ID Registro *</label>
+          <input type="text" name="plate" class="form-control" placeholder="Ej: DEV-1001 / FOLIO-01" required>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Tipo de Dispositivo *</label>
+          <select name="type" class="form-select" required>
+            <option value="Smartphone">Smartphone / Teléfono Móvil</option>
+            <option value="Tablet">Tablet</option>
+            <option value="Consola de Videojuegos">Consola de Videojuegos (PS5, Xbox, Switch)</option>
+            <option value="Laptop">Laptop / Portátil</option>
+            <option value="PC Escritorio">PC de Escritorio / Servidor</option>
+            <option value="Línea Blanca">Electrodoméstico / Línea Blanca</option>
+            <option value="Smartwatch">Smartwatch / Wearable</option>
+            <option value="Otro">Otro Dispositivo Electrónico</option>
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Cliente / Propietario *</label>
+          <select name="contact_id" class="form-select select2" required>
+            <option value="">-- Seleccionar Cliente --</option>
+            {% for c in clients %}
+              <option value="{{ c.id }}">{{ c.name }} {{ c.lastname }} ({{ c.company|default('Particular') }})</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Marca *</label>
+          <input type="text" name="brand" class="form-control" placeholder="Ej: Apple, Samsung, Sony, Dell, HP, LG" required>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Modelo *</label>
+          <input type="text" name="model" class="form-control" placeholder="Ej: iPhone 13 Pro, PlayStation 5, XPS 15" required>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Número de Serie (S/N)</label>
+          <input type="text" name="vin" class="form-control" placeholder="Ej: SN-908123XYZ">
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-bold">IMEI <span class="text-muted fw-normal">(Opcional para celulares/tablets)</span></label>
+          <input type="text" name="imei" class="form-control" placeholder="Ej: 356789012345678">
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Dirección MAC <span class="text-muted fw-normal">(Red / Wi-Fi)</span></label>
+          <input type="text" name="mac_address" class="form-control" placeholder="Ej: A4:C3:F0:12:34:56">
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Capacidad / Almacenamiento</label>
+          <input type="text" name="capacity" class="form-control" placeholder="Ej: 128 GB, 512 GB, 1 TB">
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Color / Acabado</label>
+          <input type="text" name="color" class="form-control" placeholder="Ej: Gris Espacial, Blanco, Negro Mate">
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Año de Fabricación / Compra</label>
+          <input type="number" name="year" class="form-control" placeholder="Ej: 2022" value="2022">
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Horas de Uso / Antigüedad</label>
+          <input type="number" name="hours_meter" class="form-control" placeholder="0" value="0">
+        </div>
+
+        <div class="col-12">
+          <label class="form-label fw-bold">Diagnóstico Inicial / Falla Reportada / Observaciones</label>
+          <textarea name="description" class="form-control" rows="3" placeholder="Detalle el estado físico del equipo al ingresar (rayones, accesorios incluidos) y la falla reportada por el cliente."></textarea>
+        </div>
+      </div>
+
+      <div class="mt-4 text-end">
+        <button type="submit" class="btn btn-primary fw-bold px-4">
+          <i class="bi bi-check-circle me-1"></i> Guardar Dispositivo
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

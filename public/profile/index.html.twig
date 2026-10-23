@@ -1,0 +1,65 @@
+{% extends "layouts/main.html.twig" %}
+
+{% block title %}Mi Perfil{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h2 class="fw-bold mb-1"><i class="bi bi-person-badge text-primary me-2"></i>Mi Perfil de Usuario</h2>
+  </div>
+</div>
+
+<div class="row g-4 col-md-10 mx-auto">
+  <div class="col-md-5">
+    <div class="card border-0 shadow-sm rounded-3 text-center p-4">
+      <div class="avatar avatar-xl bg-primary text-white d-flex align-items-center justify-content-center rounded-circle fw-bold mx-auto mb-3" style="width: 80px; height: 80px; font-size: 28px;">
+        {{ user.name|default('')|slice(0, 1) }}{{ user.lastname|default('')|slice(0, 1) }}
+      </div>
+      <h4 class="fw-bold mb-1">{{ user.name }} {{ user.lastname }}</h4>
+      <p class="text-muted mb-2">@{{ user.username }}</p>
+      <div>
+        {% if user.type == 1 %}
+          <span class="badge bg-primary fs-6">Administrador</span>
+        {% elseif user.type == 2 %}
+          <span class="badge bg-success fs-6">Mecánico</span>
+        {% else %}
+          <span class="badge bg-info text-dark fs-6">Cliente</span>
+        {% endif %}
+      </div>
+      <div class="small text-muted mt-3">
+        <i class="bi bi-envelope me-1"></i> {{ user.email }}
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-7">
+    <div class="card border-0 shadow-sm rounded-3">
+      <div class="card-header bg-white py-3 border-bottom">
+        <h5 class="mb-0 fw-bold"><i class="bi bi-shield-lock me-2 text-primary"></i>Cambiar Contraseña</h5>
+      </div>
+      <div class="card-body p-4">
+        <form action="{{ base_url }}/profile/change-password" method="POST">
+          {{ csrf_field() }}
+          <div class="mb-3">
+            <label class="form-label fw-bold">Contraseña Actual *</label>
+            <input type="password" name="current_password" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-bold">Nueva Contraseña *</label>
+            <input type="password" name="new_password" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-bold">Confirmar Nueva Contraseña *</label>
+            <input type="password" name="confirm_password" class="form-control" required>
+          </div>
+          <div class="text-end border-top pt-3">
+            <button type="submit" class="btn btn-primary px-4 fw-bold">
+              <i class="bi bi-key me-2"></i> Actualizar Contraseña
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

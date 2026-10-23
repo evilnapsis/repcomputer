@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <base href="{{ base_url }}/">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>RepComputer - Iniciar Sesión</title>
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="assets/bootstrap-icons/bootstrap-icons.css">
+  </head>
+  <body class="bg-light d-flex flex-row align-items-center min-vh-100">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-5">
+          <div class="card shadow-lg border-0 rounded-4">
+            <div class="card-body p-4 p-md-5">
+              <div class="text-center mb-4">
+                <div class="display-6 fw-bold text-primary mb-2">
+                  <i class="bi bi-pc-display me-2"></i>Rep<span class="text-dark">Computer</span>
+                </div>
+                <p class="text-muted">Sistema de Gestión de Taller y Servicios Técnicos</p>
+              </div>
+
+              {% if flash_error %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ flash_error }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              {% endif %}
+
+              <form action="{{ base_url }}/login" method="POST">
+                {{ csrf_field() }}
+                <div class="mb-3">
+                  <label class="form-label font-weight-bold">Usuario o Correo</label>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-person"></i></span>
+                    <input type="text" name="username" class="form-control" placeholder="Ingrese usuario" required autofocus>
+                  </div>
+                </div>
+
+                <div class="mb-4">
+                  <label class="form-label font-weight-bold">Contraseña</label>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                    <input type="password" name="password" class="form-control" placeholder="Ingrese contraseña" required>
+                  </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 py-2 fw-bold rounded-3">
+                  <i class="bi bi-box-arrow-in-right me-2"></i> Iniciar Sesión
+                </button>
+              </form>
+            </div>
+            <div class="card-footer text-center bg-white border-0 pb-4 text-muted small">
+              RepComputer Edición Gratuita v1.0 © 2026
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
