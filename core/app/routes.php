@@ -2,6 +2,7 @@
 use App\Controller\HomeController;
 use App\Controller\AuthController;
 use App\Controller\DeviceController;
+use App\Controller\DeviceTypeController;
 use App\Controller\ContactController;
 use App\Controller\ServiceCatalogController;
 use App\Controller\OperationController;
@@ -27,6 +28,14 @@ return function(FastRoute\RouteCollector $r) {
 	$r->addRoute('GET', '/device/{id:\d+}/edit', [DeviceController::class, 'edit']);
 	$r->addRoute('POST', '/device/{id:\d+}/update', [DeviceController::class, 'update']);
 	$r->addRoute('POST', '/device/{id:\d+}/delete', [DeviceController::class, 'delete']);
+
+	// Tipos de Dispositivo / Equipo
+	$r->addRoute('GET', '/device-types', [DeviceTypeController::class, 'index']);
+	$r->addRoute('GET', '/device-type/new', [DeviceTypeController::class, 'new']);
+	$r->addRoute('POST', '/device-type/create', [DeviceTypeController::class, 'create']);
+	$r->addRoute('GET', '/device-type/{id:\d+}/edit', [DeviceTypeController::class, 'edit']);
+	$r->addRoute('POST', '/device-type/{id:\d+}/update', [DeviceTypeController::class, 'update']);
+	$r->addRoute('POST', '/device-type/{id:\d+}/delete', [DeviceTypeController::class, 'delete']);
 
 	// Clientes
 	$r->addRoute('GET', '/contacts', [ContactController::class, 'index']);

@@ -30,6 +30,14 @@
           <label class="form-label fw-bold">Teléfono *</label>
           <input type="text" name="workshop_phone" class="form-control" value="{{ workshop_phone }}" required>
         </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Símbolo de Moneda *</label>
+          <div class="input-group">
+            <span class="input-group-text bg-light fw-bold">{{ coin_symbol|default('$') }}</span>
+            <input type="text" name="coin_symbol" class="form-control" value="{{ coin_symbol }}" placeholder="Ej: $, €, S/., Q, Bs., L" maxlength="10" required>
+          </div>
+          <div class="form-text small text-muted">Símbolo visible en servicios, cobros, abonos, órdenes y reportes PDF.</div>
+        </div>
       </div>
 
       <div class="alert alert-light border d-flex align-items-start mt-2" role="alert">

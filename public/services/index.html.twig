@@ -33,7 +33,7 @@
           {% for s in services %}
             <tr>
               <td><span class="fw-bold">{{ s.name }}</span></td>
-              <td><span class="fw-bold text-primary">${{ s.price|number_format(2, '.', ',') }}</span></td>
+              <td><span class="fw-bold text-primary">{{ coin_symbol }}{{ s.price|number_format(2, '.', ',') }}</span></td>
               <td class="text-center">
                 {% if s.is_active == 1 %}
                   <span class="badge bg-success shadow-sm">Activo</span>

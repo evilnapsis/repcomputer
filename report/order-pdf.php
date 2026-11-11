@@ -35,6 +35,8 @@ $w_name = ConfigurationData::getByShort("workshop_name")->val;
 $w_address = ConfigurationData::getByShort("workshop_address")->val;
 $w_phone = ConfigurationData::getByShort("workshop_phone")->val;
 $w_manager = ConfigurationData::getByShort("workshop_manager")->val;
+$coin_cfg = ConfigurationData::getByShort("coin_symbol");
+$coin_symbol = ($coin_cfg && !empty($coin_cfg->val)) ? $coin_cfg->val : "$";
 
 class PDF extends FPDF {
     public $w_name;
@@ -137,12 +139,12 @@ if(count($details)>0){
         
         $pdf->Cell(20, 6, $d->quantity, 1, 0, 'C');
         $pdf->Cell(120, 6, mb_convert_encoding($name, 'ISO-8859-1', 'UTF-8'), 1, 0, 'L');
-        $pdf->Cell(25, 6, '$' . number_format($d->price, 2), 1, 0, 'R');
-        $pdf->Cell(25, 6, '$' . number_format($d->price * $d->quantity, 2), 1, 1, 'R');
+        $pdf->Cell(25, 6, $coin_symbol . ' ' . number_format($d->price, 2), 1, 0, 'R');
+        $pdf->Cell(25, 6, $coin_symbol . ' ' . number_format($d->price * $d->quantity, 2), 1, 1, 'R');
     }
     $pdf->SetFont('Arial', 'B', 10);
     $pdf->Cell(165, 8, 'TOTAL:', 0, 0, 'R');
-    $pdf->Cell(25, 8, '$' . number_format($op->total, 2), 0, 1, 'R');
+    $pdf->Cell(25, 8, $coin_symbol . ' ' . number_format($op->total, 2), 0, 1, 'R');
     $pdf->Ln(10);
 }
 
@@ -169,7 +171,7 @@ if($op->total > 0){
             $pdf->Cell(35, 6, date("d/m/Y", strtotime($pay->created_at)), 1, 0, 'C');
             $pdf->Cell(45, 6, mb_convert_encoding($pay->method, 'ISO-8859-1', 'UTF-8'), 1, 0, 'C');
             $pdf->Cell(75, 6, mb_convert_encoding($pay->reference, 'ISO-8859-1', 'UTF-8'), 1, 0, 'L');
-            $pdf->Cell(35, 6, '$' . number_format($pay->amount, 2), 1, 1, 'R');
+            $pdf->Cell(35, 6, $coin_symbol . ' ' . number_format($pay->amount, 2), 1, 1, 'R');
         }
     }else{
         $pdf->SetFont('Arial', 'I', 9);
@@ -178,9 +180,9 @@ if($op->total > 0){
 
     $pdf->SetFont('Arial', 'B', 10);
     $pdf->Cell(155, 7, 'TOTAL COBRADO:', 0, 0, 'R');
-    $pdf->Cell(35, 7, '$' . number_format($paid, 2), 0, 1, 'R');
+    $pdf->Cell(35, 7, $coin_symbol . ' ' . number_format($paid, 2), 0, 1, 'R');
     $pdf->Cell(155, 7, mb_convert_encoding('SALDO PENDIENTE:', 'ISO-8859-1', 'UTF-8'), 0, 0, 'R');
-    $pdf->Cell(35, 7, '$' . number_format($balance, 2), 0, 1, 'R');
+    $pdf->Cell(35, 7, $coin_symbol . ' ' . number_format($balance, 2), 0, 1, 'R');
     $pdf->Ln(6);
 }
 

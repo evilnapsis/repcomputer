@@ -1,0 +1,79 @@
+{% extends "layouts/main.html.twig" %}
+
+{% block title %}Tipos de Dispositivo{% endblock %}
+
+{% block content %}
+<div class="d-flex align-items-center justify-content-between mb-2">
+  <div>
+    <h2 class="fw-bold text-dark mb-1"><i class="bi bi-tags me-2 text-primary"></i>Tipos de Dispositivo / Equipo</h2>
+    <div class="text-muted small">Gestione las categorías y tipos de equipos admitidos en el taller técnico</div>
+  </div>
+  <a href="{{ base_url }}/devices" class="btn btn-outline-secondary fw-bold">
+    <i class="bi bi-arrow-left me-1"></i> Ir a Equipos
+  </a>
+</div>
+
+<div class="d-flex align-items-center justify-content-between mb-4">
+  <div>
+    <a href="{{ base_url }}/device-type/new" class="btn btn-primary fw-bold px-3 shadow-sm">
+      <i class="bi bi-plus-lg me-2"></i> Nuevo Tipo de Dispositivo
+    </a>
+  </div>
+</div>
+
+<div class="card border-0 shadow-sm rounded-3">
+  <div class="card-body p-4">
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>Nombre del Tipo</th>
+            <th>Descripción</th>
+            <th class="text-center" style="width: 140px;">Equipos Asociados</th>
+            <th class="text-center" style="width: 120px;">Estado</th>
+            <th class="text-center" style="width: 110px;">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for dt in device_types %}
+            {% set dev_count = dt.countDevices() %}
+            <tr>
+              <td><span class="fw-bold text-dark">{{ dt.name }}</span></td>
+              <td class="text-muted">{{ dt.description|default('—') }}</td>
+              <td class="text-center">
+                {% if dev_count > 0 %}
+                  <span class="badge bg-info text-dark fw-bold">{{ dev_count }} equipo(s)</span>
+                {% else %}
+                  <span class="badge bg-light text-muted border">0</span>
+                {% endif %}
+              </td>
+              <td class="text-center">
+                {% if dt.is_active == 1 %}
+                  <span class="badge bg-success shadow-sm">Activo</span>
+                {% else %}
+                  <span class="badge bg-secondary shadow-sm">Inactivo</span>
+                {% endif %}
+              </td>
+              <td class="text-center">
+                <a href="{{ base_url }}/device-type/{{ dt.id }}/edit" class="btn btn-warning btn-sm text-white me-1" title="Editar">
+                  <i class="bi bi-pencil-square"></i>
+                </a>
+                <form action="{{ base_url }}/device-type/{{ dt.id }}/delete" method="POST" class="d-inline" onsubmit="return confirm('¿Seguro de {% if dev_count > 0 %}desactivar{% else %}eliminar{% endif %} este tipo de dispositivo?');">
+                  {{ csrf_field() }}
+                  <button type="submit" class="btn btn-danger btn-sm" title="{% if dev_count > 0 %}Desactivar{% else %}Eliminar{% endif %}">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </form>
+              </td>
+            </tr>
+          {% else %}
+            <tr>
+              <td colspan="5" class="text-center py-4 text-muted">No hay tipos de dispositivo registrados.</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

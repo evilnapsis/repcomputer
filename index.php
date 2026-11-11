@@ -63,6 +63,7 @@ if ($routeInfo[0] === FastRoute\Dispatcher::FOUND) {
 	$protectedControllers = [
 		App\Controller\HomeController::class,
 		App\Controller\DeviceController::class,
+		App\Controller\DeviceTypeController::class,
 		App\Controller\ContactController::class,
 		App\Controller\ServiceCatalogController::class,
 		App\Controller\OperationController::class,

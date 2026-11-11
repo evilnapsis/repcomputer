@@ -49,6 +49,8 @@ if($opt == "payments"){
 $w_name = ConfigurationData::getByShort("workshop_name")->val;
 $w_address = ConfigurationData::getByShort("workshop_address")->val;
 $w_phone = ConfigurationData::getByShort("workshop_phone")->val;
+$coin_cfg = ConfigurationData::getByShort("coin_symbol");
+$coin_symbol = ($coin_cfg && !empty($coin_cfg->val)) ? $coin_cfg->val : "$";
 
 class PDF extends FPDF {
     public $w_name;
@@ -146,17 +148,17 @@ if($opt == "service_orders") {
         $pdf->Cell(55, 7, mb_convert_encoding($client_name, 'ISO-8859-1', 'UTF-8'), 1, 0, 'L');
         $pdf->Cell(35, 7, mb_convert_encoding($status_name, 'ISO-8859-1', 'UTF-8'), 1, 0, 'C');
         $pdf->Cell(22, 7, date("d/m/Y", strtotime($op->created_at)), 1, 0, 'C');
-        $pdf->Cell(25, 7, "$ " . number_format($op->total, 2), 1, 0, 'R');
-        $pdf->Cell(25, 7, "$ " . number_format($paid, 2), 1, 0, 'R');
-        $pdf->Cell(20, 7, "$ " . number_format($balance, 2), 1, 1, 'R');
+        $pdf->Cell(25, 7, $coin_symbol . ' ' . number_format($op->total, 2), 1, 0, 'R');
+        $pdf->Cell(25, 7, $coin_symbol . ' ' . number_format($paid, 2), 1, 0, 'R');
+        $pdf->Cell(20, 7, $coin_symbol . ' ' . number_format($balance, 2), 1, 1, 'R');
     }
 
     $pdf->SetFont('Arial', 'B', 10);
     $pdf->SetFillColor(240, 240, 240);
     $pdf->Cell(207, 8, "TOTALES:", 1, 0, 'R', true);
-    $pdf->Cell(25, 8, "$ " . number_format($total_sum, 2), 1, 0, 'R', true);
-    $pdf->Cell(25, 8, "$ " . number_format($paid_sum, 2), 1, 0, 'R', true);
-    $pdf->Cell(20, 8, "$ " . number_format($balance_sum, 2), 1, 1, 'R', true);
+    $pdf->Cell(25, 8, $coin_symbol . ' ' . number_format($total_sum, 2), 1, 0, 'R', true);
+    $pdf->Cell(25, 8, $coin_symbol . ' ' . number_format($paid_sum, 2), 1, 0, 'R', true);
+    $pdf->Cell(20, 8, $coin_symbol . ' ' . number_format($balance_sum, 2), 1, 1, 'R', true);
 
 } else {
 
@@ -173,13 +175,13 @@ if($opt == "service_orders") {
         $pdf->Cell(85, 7, mb_convert_encoding($client_name, 'ISO-8859-1', 'UTF-8'), 1, 0, 'L');
         $pdf->Cell(35, 7, mb_convert_encoding($pay->method, 'ISO-8859-1', 'UTF-8'), 1, 0, 'C');
         $pdf->Cell(60, 7, mb_convert_encoding($pay->reference, 'ISO-8859-1', 'UTF-8'), 1, 0, 'L');
-        $pdf->Cell(40, 7, "$ " . number_format($pay->amount, 2), 1, 1, 'R');
+        $pdf->Cell(40, 7, $coin_symbol . ' ' . number_format($pay->amount, 2), 1, 1, 'R');
     }
 
     $pdf->SetFont('Arial', 'B', 10);
     $pdf->SetFillColor(240, 240, 240);
     $pdf->Cell(237, 8, "TOTAL COBRADO:", 1, 0, 'R', true);
-    $pdf->Cell(40, 8, "$ " . number_format($total_sum, 2), 1, 1, 'R', true);
+    $pdf->Cell(40, 8, $coin_symbol . ' ' . number_format($total_sum, 2), 1, 1, 'R', true);
 }
 
 $pdf->Output('I', strtolower(str_replace(' ', '_', $report_title)) . '_' . date('Ymd') . '.pdf');

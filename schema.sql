@@ -42,6 +42,24 @@ create table contact (
 	created_at datetime not null
 );
 
+create table device_type (
+	id int not null auto_increment primary key,
+	name varchar(100) not null,
+	description varchar(255),
+	is_active boolean not null default 1,
+	created_at datetime not null
+);
+
+insert into device_type (name, description, is_active, created_at) values
+('Smartphone', 'Teléfonos móviles y smartphones', 1, NOW()),
+('Tablet', 'Tablets y iPads', 1, NOW()),
+('Consola de Videojuegos', 'PlayStation, Xbox, Nintendo Switch, etc.', 1, NOW()),
+('Laptop', 'Laptops, Notebooks y MacBooks', 1, NOW()),
+('PC Escritorio', 'Computadoras de escritorio, servidores y Workstations', 1, NOW()),
+('Línea Blanca', 'Electrodomésticos y equipos para el hogar', 1, NOW()),
+('Smartwatch', 'Relojes inteligentes y wearables', 1, NOW()),
+('Otro', 'Otros equipos electrónicos o periféricos', 1, NOW());
+
 create table device (
 	id int not null auto_increment primary key,
 	plate varchar(50), /* Folio / ID de Registro */
@@ -50,7 +68,8 @@ create table device (
 	model varchar(50),
 	year int,
 	color varchar(50),
-	type varchar(50), /* Smartphone, Tablet, Consola de Videojuegos, Laptop, PC Escritorio, Linea Blanca, etc. */
+	device_type_id int,
+	type varchar(50), /* Compatibilidad / Nombre de tipo */
 	imei varchar(100), /* Opcional */
 	mac_address varchar(100),
 	capacity varchar(50), /* Capacidad / Almacenamiento (ej. 128 GB, 1 TB) */
@@ -58,6 +77,7 @@ create table device (
 	contact_id int,
 	description text,
 	created_at datetime,
+	foreign key (device_type_id) references device_type(id) on delete set null,
 	foreign key (contact_id) references contact(id)
 );
 
@@ -130,7 +150,8 @@ insert into configuration (name,short,val) values
 ("Nombre del Taller", "workshop_name", "RepComputer"),
 ("Dirección", "workshop_address", "Av. Siempre Viva 123"),
 ("Teléfono", "workshop_phone", "555-1234"),
-("Persona Responsable", "workshop_manager", "Isaac Newton");
+("Persona Responsable", "workshop_manager", "Isaac Newton"),
+("Símbolo de Moneda", "coin_symbol", "$");
 
 -- ====================================================================
 -- DATOS DEMO

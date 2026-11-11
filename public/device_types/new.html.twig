@@ -1,0 +1,50 @@
+{% extends "layouts/main.html.twig" %}
+
+{% block title %}Nuevo Tipo de Dispositivo{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <div>
+    <h2 class="fw-bold text-dark mb-1">Registrar Nuevo Tipo de Dispositivo</h2>
+    <div class="text-muted small">Agregue una nueva categoría para clasificar los equipos recibidos en el taller</div>
+  </div>
+  <a href="{{ base_url }}/device-types" class="btn btn-outline-secondary fw-bold">
+    <i class="bi bi-arrow-left me-1"></i> Volver a la Lista
+  </a>
+</div>
+
+<div class="card border-0 shadow-sm rounded-3 col-md-8 mx-auto">
+  <div class="card-body p-4">
+    <form action="{{ base_url }}/device-type/create" method="POST">
+      {{ csrf_field() }}
+
+      <div class="row g-3">
+        <div class="col-md-12">
+          <label class="form-label fw-bold">Nombre del Tipo de Dispositivo *</label>
+          <input type="text" name="name" class="form-control" placeholder="Ej: Smartphone, Impresora 3D, Dron, Consola Portátil" required autofocus>
+        </div>
+
+        <div class="col-md-12">
+          <label class="form-label fw-bold">Descripción / Alcance</label>
+          <textarea name="description" class="form-control" rows="3" placeholder="Breve descripción o notas sobre los equipos agrupados bajo este tipo."></textarea>
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label fw-bold">Estado en el Sistema</label>
+          <select name="is_active" class="form-select">
+            <option value="1" selected>Activo (Disponible al registrar equipos)</option>
+            <option value="0">Inactivo (Ocultar temporalmente)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="mt-4 text-end border-top pt-3">
+        <a href="{{ base_url }}/device-types" class="btn btn-light border me-2">Cancelar</a>
+        <button type="submit" class="btn btn-primary px-4 fw-bold">
+          <i class="bi bi-save me-2"></i> Guardar Tipo de Dispositivo
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

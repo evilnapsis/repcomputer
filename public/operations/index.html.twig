@@ -54,7 +54,7 @@
                   <span class="badge shadow-sm" style="background-color: {{ status.color }}; color: #fff;">{{ status.name }}</span>
                 {% endif %}
               </td>
-              <td><span class="fw-bold text-success">${{ op.total|number_format(2, '.', ',') }}</span></td>
+              <td><span class="fw-bold text-success">{{ coin_symbol }}{{ op.total|number_format(2, '.', ',') }}</span></td>
               <td>
                 {% if op.total <= 0 %}
                   <span class="badge bg-light text-muted">Sin servicios</span>
@@ -62,7 +62,7 @@
                   <span class="badge bg-danger">Sin pagos</span>
                 {% elseif balance > 0 %}
                   <span class="badge bg-warning text-dark">Abonada</span>
-                  <small class="d-block text-danger">Saldo ${{ balance|number_format(2, '.', ',') }}</small>
+                  <small class="d-block text-danger">Saldo {{ coin_symbol }}{{ balance|number_format(2, '.', ',') }}</small>
                 {% else %}
                   <span class="badge bg-success">Pagada</span>
                 {% endif %}

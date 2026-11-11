@@ -22,7 +22,7 @@
           <input type="text" name="name" class="form-control" value="{{ service.name }}" required>
         </div>
         <div class="col-md-3">
-          <label class="form-label fw-bold">Precio Sugerido ($) *</label>
+          <label class="form-label fw-bold">Precio Sugerido ({{ coin_symbol }}) *</label>
           <input type="number" step="0.01" name="price" class="form-control" value="{{ service.price }}" required>
         </div>
         <div class="col-md-3">

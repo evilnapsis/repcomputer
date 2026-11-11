@@ -12,20 +12,20 @@
   </a>
 </div>
 
-<!-- 6 Cards Contadoras (KPIs) en Colores Crema con Iconos Grandes -->
+<!-- 6 Cards Contadoras (KPIs) en Colores Crema con Tonos Subidos y Diferenciados -->
 <div class="row g-3 mb-4">
-  <!-- Card 1: Órdenes Activas -->
+  <!-- Card 1: Órdenes Activas (Crema Vainilla / Dorado) -->
   <div class="col-sm-6 col-md-4 col-xl-2">
     <a href="{{ base_url }}/operations" class="text-decoration-none">
-      <div class="card card-crema card-hover h-100">
+      <div class="card card-crema-base card-crema-1 h-100">
         <div class="card-body p-3">
           <div class="d-flex align-items-center justify-content-between">
             <div>
               <div class="widget-title">Órdenes Activas</div>
               <div class="widget-value">{{ active_operations }}</div>
             </div>
-            <div class="widget-icon-box" style="background-color: #e8ecf8 !important;">
-              <i class="bi bi-tools" style="color: #3b82f6 !important;"></i>
+            <div class="widget-icon-box">
+              <i class="bi bi-tools"></i>
             </div>
           </div>
         </div>
@@ -33,18 +33,18 @@
     </a>
   </div>
 
-  <!-- Card 2: Órdenes Terminadas -->
+  <!-- Card 2: Órdenes Terminadas (Crema Menta / Salvia) -->
   <div class="col-sm-6 col-md-4 col-xl-2">
     <a href="{{ base_url }}/operations" class="text-decoration-none">
-      <div class="card card-crema card-hover h-100">
+      <div class="card card-crema-base card-crema-2 h-100">
         <div class="card-body p-3">
           <div class="d-flex align-items-center justify-content-between">
             <div>
               <div class="widget-title">Terminadas</div>
               <div class="widget-value">{{ completed_operations }}</div>
             </div>
-            <div class="widget-icon-box" style="background-color: #e2f4ea !important;">
-              <i class="bi bi-check2-circle" style="color: #15803d !important;"></i>
+            <div class="widget-icon-box">
+              <i class="bi bi-check2-circle"></i>
             </div>
           </div>
         </div>
@@ -52,18 +52,18 @@
     </a>
   </div>
 
-  <!-- Card 3: Dispositivos -->
+  <!-- Card 3: Dispositivos (Crema Celeste / Azul Glaciar) -->
   <div class="col-sm-6 col-md-4 col-xl-2">
     <a href="{{ base_url }}/devices" class="text-decoration-none">
-      <div class="card card-crema card-hover h-100">
+      <div class="card card-crema-base card-crema-3 h-100">
         <div class="card-body p-3">
           <div class="d-flex align-items-center justify-content-between">
             <div>
               <div class="widget-title">Dispositivos</div>
               <div class="widget-value">{{ total_devices }}</div>
             </div>
-            <div class="widget-icon-box" style="background-color: #e0f2fe !important;">
-              <i class="bi bi-laptop" style="color: #0284c7 !important;"></i>
+            <div class="widget-icon-box">
+              <i class="bi bi-laptop"></i>
             </div>
           </div>
         </div>
@@ -71,18 +71,18 @@
     </a>
   </div>
 
-  <!-- Card 4: Clientes -->
+  <!-- Card 4: Clientes (Crema Rosa / Fresa Empolvada) -->
   <div class="col-sm-6 col-md-4 col-xl-2">
     <a href="{{ base_url }}/contacts" class="text-decoration-none">
-      <div class="card card-crema card-hover h-100">
+      <div class="card card-crema-base card-crema-4 h-100">
         <div class="card-body p-3">
           <div class="d-flex align-items-center justify-content-between">
             <div>
               <div class="widget-title">Clientes</div>
               <div class="widget-value">{{ total_clients }}</div>
             </div>
-            <div class="widget-icon-box" style="background-color: #f3e8ff !important;">
-              <i class="bi bi-people" style="color: #7c3aed !important;"></i>
+            <div class="widget-icon-box">
+              <i class="bi bi-people"></i>
             </div>
           </div>
         </div>
@@ -90,18 +90,18 @@
     </a>
   </div>
 
-  <!-- Card 5: Servicios (Catálogo) -->
+  <!-- Card 5: Servicios (Crema Albaricoque / Durazno Cálido) -->
   <div class="col-sm-6 col-md-4 col-xl-2">
     <a href="{{ base_url }}/services" class="text-decoration-none">
-      <div class="card card-crema card-hover h-100">
+      <div class="card card-crema-base card-crema-5 h-100">
         <div class="card-body p-3">
           <div class="d-flex align-items-center justify-content-between">
             <div>
               <div class="widget-title">Servicios</div>
               <div class="widget-value">{{ total_services }}</div>
             </div>
-            <div class="widget-icon-box" style="background-color: #fef3c7 !important;">
-              <i class="bi bi-briefcase" style="color: #d97706 !important;"></i>
+            <div class="widget-icon-box">
+              <i class="bi bi-briefcase"></i>
             </div>
           </div>
         </div>
@@ -109,18 +109,18 @@
     </a>
   </div>
 
-  <!-- Card 6: Usuarios -->
+  <!-- Card 6: Usuarios (Crema Lavanda / Malva Cálido) -->
   <div class="col-sm-6 col-md-4 col-xl-2">
     <a href="{{ base_url }}/users" class="text-decoration-none">
-      <div class="card card-crema card-hover h-100">
+      <div class="card card-crema-base card-crema-6 h-100">
         <div class="card-body p-3">
           <div class="d-flex align-items-center justify-content-between">
             <div>
               <div class="widget-title">Usuarios</div>
               <div class="widget-value">{{ total_users }}</div>
             </div>
-            <div class="widget-icon-box" style="background-color: #fae8ff !important;">
-              <i class="bi bi-person-badge" style="color: #a21caf !important;"></i>
+            <div class="widget-icon-box">
+              <i class="bi bi-person-badge"></i>
             </div>
           </div>
         </div>
@@ -160,7 +160,7 @@
                   <i class="bi bi-cash-stack text-success me-1"></i> Total Pagos (Últimos 30 Días)
                 </div>
                 <div class="fs-3 fw-bold text-success mb-1">
-                  ${{ total_payments_30_days|number_format(2, '.', ',') }}
+                  {{ coin_symbol }}{{ total_payments_30_days|number_format(2, '.', ',') }}
                 </div>
                 <div class="small text-muted">
                   Cobros y anticipos recibidos en el taller
@@ -180,7 +180,7 @@
                   <i class="bi bi-hourglass-split text-danger me-1"></i> Total Saldo Pendiente
                 </div>
                 <div class="fs-3 fw-bold text-danger mb-1">
-                  ${{ total_pending_balance|number_format(2, '.', ',') }}
+                  {{ coin_symbol }}{{ total_pending_balance|number_format(2, '.', ',') }}
                 </div>
                 <div class="small text-muted">
                   <span class="badge bg-danger bg-opacity-10 text-danger border border-danger-subtle">{{ pending_orders_count }} órdenes</span> por liquidar
@@ -283,7 +283,7 @@
                   <span class="badge bg-secondary">Pendiente</span>
                 {% endif %}
               </td>
-              <td class="fw-bold text-success">${{ op.total|number_format(2, '.', ',') }}</td>
+              <td class="fw-bold text-success">{{ coin_symbol }}{{ op.total|number_format(2, '.', ',') }}</td>
               <td class="text-end">
                 <a href="{{ base_url }}/operation/{{ op.id }}" class="btn btn-sm btn-outline-primary" title="Ver Detalle">
                   <i class="bi bi-eye"></i> Detalle
@@ -305,6 +305,7 @@
 {% block scripts %}
 <script>
 document.addEventListener("DOMContentLoaded", function() {
+  const coinSymbol = '{{ coin_symbol|default("$")|e("js") }}';
   // 1. Gráfica de Pagos de los Últimos 30 Días (Verde Oscuro)
   const paymentCanvas = document.getElementById('payments30DaysChart');
   if (paymentCanvas && typeof Chart !== 'undefined') {
@@ -318,7 +319,7 @@ document.addEventListener("DOMContentLoaded", function() {
       data: {
         labels: {{ chart_30days_labels|json_encode|raw }},
         datasets: [{
-          label: 'Pagos Recibidos ($)',
+          label: 'Pagos Recibidos (' + coinSymbol + ')',
           data: {{ chart_30days_values|json_encode|raw }},
           borderColor: '#15803d',
           backgroundColor: paymentGradient,
@@ -355,7 +356,7 @@ document.addEventListener("DOMContentLoaded", function() {
             callbacks: {
               label: function(context) {
                 let val = context.parsed.y || 0;
-                return ' Total Cobrado: $' + val.toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                return ' Total Cobrado: ' + coinSymbol + val.toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
               }
             }
           }
@@ -373,7 +374,7 @@ document.addEventListener("DOMContentLoaded", function() {
             grid: { color: 'rgba(0, 0, 0, 0.05)' },
             ticks: {
               callback: function(val) {
-                return '$' + Number(val).toLocaleString('es-MX');
+                return coinSymbol + Number(val).toLocaleString('es-MX');
               },
               font: { size: 11 }
             }

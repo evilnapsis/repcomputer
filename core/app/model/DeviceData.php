@@ -9,6 +9,7 @@ class DeviceData {
 	public $model;
 	public $year;
 	public $color;
+	public $device_type_id;
 	public $type;
 	public $imei;
 	public $mac_address;
@@ -25,6 +26,7 @@ class DeviceData {
 		$this->model = "";
 		$this->year = 0;
 		$this->color = "";
+		$this->device_type_id = "NULL";
 		$this->type = "";
 		$this->imei = "";
 		$this->mac_address = "";
@@ -35,8 +37,9 @@ class DeviceData {
 	}
 
 	public function add(){
-		$sql = "insert into ".self::$tablename." (plate,vin,brand,model,year,color,type,imei,mac_address,capacity,hours_meter,contact_id,description,created_at) ";
-		$sql .= "value (\"$this->plate\",\"$this->vin\",\"$this->brand\",\"$this->model\",\"$this->year\",\"$this->color\",\"$this->type\",\"$this->imei\",\"$this->mac_address\",\"$this->capacity\",\"$this->hours_meter\",$this->contact_id,\"$this->description\",$this->created_at)";
+		$typeId = (!empty($this->device_type_id) && $this->device_type_id != "NULL") ? intval($this->device_type_id) : "NULL";
+		$sql = "insert into ".self::$tablename." (plate,vin,brand,model,year,color,device_type_id,type,imei,mac_address,capacity,hours_meter,contact_id,description,created_at) ";
+		$sql .= "value (\"$this->plate\",\"$this->vin\",\"$this->brand\",\"$this->model\",\"$this->year\",\"$this->color\",$typeId,\"$this->type\",\"$this->imei\",\"$this->mac_address\",\"$this->capacity\",\"$this->hours_meter\",$this->contact_id,\"$this->description\",$this->created_at)";
 		return Executor::doit($sql);
 	}
 
@@ -46,7 +49,8 @@ class DeviceData {
 	}
 
 	public function update(){
-		$sql = "update ".self::$tablename." set plate=\"$this->plate\",vin=\"$this->vin\",brand=\"$this->brand\",model=\"$this->model\",year=\"$this->year\",color=\"$this->color\",type=\"$this->type\",imei=\"$this->imei\",mac_address=\"$this->mac_address\",capacity=\"$this->capacity\",hours_meter=\"$this->hours_meter\",contact_id=$this->contact_id,description=\"$this->description\" where id=$this->id";
+		$typeId = (!empty($this->device_type_id) && $this->device_type_id != "NULL") ? intval($this->device_type_id) : "NULL";
+		$sql = "update ".self::$tablename." set plate=\"$this->plate\",vin=\"$this->vin\",brand=\"$this->brand\",model=\"$this->model\",year=\"$this->year\",color=\"$this->color\",device_type_id=$typeId,type=\"$this->type\",imei=\"$this->imei\",mac_address=\"$this->mac_address\",capacity=\"$this->capacity\",hours_meter=\"$this->hours_meter\",contact_id=$this->contact_id,description=\"$this->description\" where id=$this->id";
 		Executor::doit($sql);
 	}
 
@@ -74,5 +78,11 @@ class DeviceData {
 	}
 
 	public function getContact(){ return ContactData::getById($this->contact_id); }
+	public function getDeviceType(){ 
+		if (!empty($this->device_type_id)) {
+			return DeviceTypeData::getById($this->device_type_id);
+		}
+		return null;
+	}
 }
 ?>

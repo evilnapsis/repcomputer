@@ -23,8 +23,8 @@
     <div class="sidebar sidebar-fixed border-end bg-white" id="sidebar">
       <div class="sidebar-header border-bottom d-flex align-items-center justify-content-between px-3">
         <a href="{{ base_url }}/home" class="sidebar-brand text-decoration-none d-flex align-items-center">
-          <span class="sidebar-brand-full" style="font-size:20px; font-weight: 800; letter-spacing: -0.5px; color: #0f172a;"><i class="bi bi-pc-display me-2" style="color: #15803d;"></i>REP<span style="color: #16a34a;">COMPUTER</span></span>
-          <span class="sidebar-brand-narrow fw-bold" style="color: #15803d; font-size: 20px;">RC</span>
+          <span class="sidebar-brand-full" style="font-size:20px; font-weight: 800; letter-spacing: -0.5px; color: #0f172a;"><i class="bi bi-pc-display me-2" style="color: #059669;"></i>REP<span style="color: #10b981;">COMPUTER</span></span>
+          <span class="sidebar-brand-narrow fw-bold" style="color: #059669; font-size: 20px;">RC</span>
         </a>
         <button class="btn-close d-lg-none" type="button" data-coreui-dismiss="offcanvas" aria-label="Close" onclick="coreui.Sidebar.getInstance(document.querySelector(&quot;#sidebar&quot;)).toggle()"></button>
       </div>
@@ -41,8 +41,13 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link{% if curr_path starts with '/device' %} active{% endif %}" href="{{ base_url }}/devices">
+          <a class="nav-link{% if curr_path starts with '/device' and not (curr_path starts with '/device-type') %} active{% endif %}" href="{{ base_url }}/devices">
             <i class="nav-icon bi bi-laptop"></i> Dispositivos
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link{% if curr_path starts with '/device-type' %} active{% endif %}" href="{{ base_url }}/device-types">
+            <i class="nav-icon bi bi-tags"></i> Tipos de Equipo
           </a>
         </li>
         <li class="nav-item">

@@ -203,15 +203,16 @@ h2 {
 }
 
 /* ==========================================================================
-   SIDEBAR MODERNO - FONDO BLANCO Y ACENTOS VERDE OSCURO PROFESIONAL
+   SIDEBAR MODERNO - FONDO BLANCO Y ACENTOS VERDE CREMA (HOVER Y ACTIVO)
    ========================================================================== */
 :root {
-  --dark-green-primary: #15803d;
-  --dark-green-hover: #166534;
-  --dark-green-text: #ffffff;
-  --dark-green-hover-bg: rgba(21, 128, 61, 0.08);
-  --dark-green-active-bg: #15803d;
-  --dark-green-glow: 0 3px 10px rgba(21, 128, 61, 0.28);
+  --green-cream-active-bg: linear-gradient(135deg, #dcfce7 0%, #a7f3d0 100%);
+  --green-cream-active-text: #064e3b;
+  --green-cream-active-border: #6ee7b7;
+  --green-cream-active-shadow: 0 4px 12px rgba(6, 78, 59, 0.15);
+  --green-cream-hover-bg: #ecfdf5;
+  --green-cream-hover-text: #065f46;
+  --green-cream-hover-indicator: #10b981;
   --sidebar-text-default: #475569;
 }
 
@@ -277,49 +278,50 @@ h2 {
   transition: color 0.2s ease, transform 0.2s ease !important;
 }
 
-/* Efecto Hover: Verde Oscuro sobrio */
+/* Efecto Hover: Verde Crema fresco con indicador esmeralda */
 #sidebar:not(.sidebar-narrow):not(.sidebar-narrow-unfoldable) .sidebar-nav .nav-link:hover,
 #sidebar.sidebar-narrow-unfoldable:hover .sidebar-nav .nav-link:hover {
-  background-color: var(--dark-green-hover-bg) !important;
-  color: var(--dark-green-hover) !important;
-  font-weight: 600 !important;
+  background-color: var(--green-cream-hover-bg) !important;
+  color: var(--green-cream-hover-text) !important;
+  font-weight: 700 !important;
   transform: translateX(3px) !important;
-  box-shadow: inset 4px 0 0 var(--dark-green-primary), 0 2px 8px rgba(21, 128, 61, 0.12) !important;
+  box-shadow: inset 4px 0 0 var(--green-cream-hover-indicator), 0 2px 8px rgba(5, 150, 105, 0.12) !important;
 }
 
 #sidebar:not(.sidebar-narrow):not(.sidebar-narrow-unfoldable) .sidebar-nav .nav-link:hover .nav-icon,
 #sidebar.sidebar-narrow-unfoldable:hover .sidebar-nav .nav-link:hover .nav-icon {
-  color: var(--dark-green-primary) !important;
+  color: var(--green-cream-hover-indicator) !important;
   transform: scale(1.1) !important;
 }
 
-/* Elemento Activo: Verde Oscuro con texto blanco */
+/* Elemento Activo: Verde Crema menta/salvia con texto verde bosque de alto contraste */
 #sidebar .sidebar-nav .nav-link.active {
-  background: linear-gradient(135deg, #16a34a 0%, #15803d 100%) !important;
-  color: #ffffff !important;
-  font-weight: 700 !important;
-  box-shadow: var(--dark-green-glow) !important;
+  background: var(--green-cream-active-bg) !important;
+  color: var(--green-cream-active-text) !important;
+  font-weight: 800 !important;
+  box-shadow: var(--green-cream-active-shadow) !important;
+  border: 1px solid var(--green-cream-active-border) !important;
   transform: none !important;
 }
 
 #sidebar .sidebar-nav .nav-link.active .nav-icon {
-  color: #ffffff !important;
-  font-weight: 700 !important;
-  transform: none !important;
+  color: var(--green-cream-active-text) !important;
+  font-weight: 800 !important;
 }
 
 /* Grupos y Submenús (ej. Reportes) */
 #sidebar .sidebar-nav .nav-group.show > .nav-group-toggle {
-  color: #0f172a !important;
-  font-weight: 600 !important;
-  background-color: #f8fafc !important;
+  color: #064e3b !important;
+  font-weight: 700 !important;
+  background-color: #f0fdf4 !important;
 }
 
 #sidebar .sidebar-nav .nav-group-items {
-  background-color: #f8fafc !important;
+  background-color: #f0fdf4 !important;
   border-radius: 8px !important;
   margin: 3px 6px !important;
   padding: 4px 0 !important;
+  border: 1px solid #d1fae5 !important;
 }
 
 #sidebar .sidebar-nav .nav-group-items .nav-link {
@@ -332,28 +334,38 @@ h2 {
   font-size: 0.95rem !important;
 }
 
+#sidebar .sidebar-nav .nav-group-items .nav-link:hover {
+  background-color: var(--green-cream-hover-bg) !important;
+  color: var(--green-cream-hover-text) !important;
+}
+
+#sidebar .sidebar-nav .nav-group-items .nav-link:hover .nav-icon {
+  color: var(--green-cream-hover-indicator) !important;
+}
+
 #sidebar .sidebar-nav .nav-group-items .nav-link.active {
-  background: linear-gradient(135deg, #16a34a 0%, #15803d 100%) !important;
-  color: #ffffff !important;
-  font-weight: 700 !important;
-  box-shadow: 0 3px 10px rgba(21, 128, 61, 0.25) !important;
+  background: var(--green-cream-active-bg) !important;
+  color: var(--green-cream-active-text) !important;
+  font-weight: 800 !important;
+  box-shadow: 0 3px 10px rgba(6, 95, 70, 0.16) !important;
+  border: 1px solid var(--green-cream-active-border) !important;
 }
 
 #sidebar .sidebar-nav .nav-group-items .nav-link.active .nav-icon {
-  color: #ffffff !important;
+  color: var(--green-cream-active-text) !important;
 }
 
 /* Toggler inferior */
 #sidebar .sidebar-toggler {
-  background-color: #f1f5f9 !important;
+  background-color: #f8fafc !important;
   border-radius: 6px !important;
   color: #475569 !important;
   transition: all 0.2s ease !important;
 }
 
 #sidebar .sidebar-toggler:hover {
-  background-color: var(--dark-green-hover-bg) !important;
-  color: var(--dark-green-primary) !important;
+  background-color: var(--green-cream-hover-bg) !important;
+  color: var(--green-cream-hover-text) !important;
 }
 
 /* ==========================================================================
@@ -394,7 +406,7 @@ h2 {
 #sidebar.sidebar-narrow-unfoldable:not(:hover) .sidebar-brand-narrow {
   display: inline-block !important;
   font-size: 1.25rem !important;
-  color: var(--dark-green-primary) !important;
+  color: var(--green-cream-hover-indicator) !important;
   font-weight: 800 !important;
 }
 
@@ -442,30 +454,30 @@ h2 {
 
 #sidebar.sidebar-narrow .sidebar-nav .nav-link:hover,
 #sidebar.sidebar-narrow-unfoldable:not(:hover) .sidebar-nav .nav-link:hover {
-  background-color: var(--dark-green-hover-bg) !important;
-  color: var(--dark-green-primary) !important;
+  background-color: var(--green-cream-hover-bg) !important;
+  color: var(--green-cream-hover-text) !important;
   transform: none !important;
   box-shadow: none !important;
 }
 
 #sidebar.sidebar-narrow .sidebar-nav .nav-link:hover .nav-icon,
 #sidebar.sidebar-narrow-unfoldable:not(:hover) .sidebar-nav .nav-link:hover .nav-icon {
-  color: var(--dark-green-primary) !important;
+  color: var(--green-cream-hover-indicator) !important;
   transform: none !important;
 }
 
 #sidebar.sidebar-narrow .sidebar-nav .nav-link.active,
 #sidebar.sidebar-narrow-unfoldable:not(:hover) .sidebar-nav .nav-link.active {
-  background: var(--dark-green-primary) !important;
-  color: #ffffff !important;
+  background: var(--green-cream-active-bg) !important;
+  color: var(--green-cream-active-text) !important;
+  border: 1px solid var(--green-cream-active-border) !important;
   transform: none !important;
   box-shadow: none !important;
 }
 
 #sidebar.sidebar-narrow .sidebar-nav .nav-link.active .nav-icon,
 #sidebar.sidebar-narrow-unfoldable:not(:hover) .sidebar-nav .nav-link.active .nav-icon {
-  color: #ffffff !important;
-  transform: none !important;
+  color: var(--green-cream-active-text) !important;
 }
 
 #sidebar.sidebar-narrow .sidebar-nav .nav-group-toggle::after,
@@ -479,38 +491,37 @@ h2 {
 }
 
 /* ==========================================================================
-   WIDGETS CONTADORES COLOR CREMA CON ICONOS Y CÍRCULOS AMPLIOS
+   WIDGETS CONTADORES: COLORES CREMA CON TONOS MÁS SUBIDOS Y DIFERENCIADOS
    ========================================================================== */
-.card-crema {
-  background-color: #faf6ee !important;
-  border: 1px solid #ebd9c8 !important;
-  box-shadow: 0 0.125rem 0.35rem rgba(120, 90, 40, 0.05) !important;
+.card-crema-base {
   border-radius: 0.75rem !important;
+  border-width: 1px !important;
+  border-style: solid !important;
+  box-shadow: 0 0.125rem 0.35rem rgba(0, 0, 0, 0.05) !important;
+  transition: transform 0.22s ease-in-out, box-shadow 0.22s ease-in-out !important;
 }
 
-.card-crema:hover {
+.card-crema-base:hover {
   transform: translateY(-4px) !important;
-  box-shadow: 0 0.5rem 1.25rem rgba(120, 90, 40, 0.1) !important;
-  border-color: #dfc5af !important;
+  box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.12) !important;
 }
 
-.card-crema .widget-title {
+.card-crema-base .widget-title {
   font-size: 0.72rem !important;
-  font-weight: 700 !important;
-  color: #8c7866 !important;
+  font-weight: 800 !important;
   text-transform: uppercase !important;
   letter-spacing: 0.04em !important;
 }
 
-.card-crema .widget-value {
+.card-crema-base .widget-value {
   font-size: 2.15rem !important;
   font-weight: 800 !important;
-  color: #292524 !important;
+  color: #18181b !important;
   line-height: 1.15 !important;
   margin-top: 4px !important;
 }
 
-.card-crema .widget-icon-box {
+.card-crema-base .widget-icon-box {
   width: 58px !important;
   height: 58px !important;
   min-width: 58px !important;
@@ -520,11 +531,64 @@ h2 {
   align-items: center !important;
   justify-content: center !important;
   flex-shrink: 0 !important;
-  background-color: #f1e7d8 !important;
 }
 
-.card-crema .widget-icon-box i {
+.card-crema-base .widget-icon-box i {
   font-size: 1.75rem !important;
 }
+
+/* 1. Órdenes Activas: Crema Vainilla / Dorado */
+.card-crema-1 {
+  background-color: #fde68a !important;
+  border-color: #fcd34d !important;
+}
+.card-crema-1 .widget-title { color: #854d0e !important; }
+.card-crema-1 .widget-icon-box { background-color: #fcd34d !important; }
+.card-crema-1 .widget-icon-box i { color: #78350f !important; }
+
+/* 2. Órdenes Terminadas: Crema Menta / Salvia Verde */
+.card-crema-2 {
+  background-color: #a7f3d0 !important;
+  border-color: #6ee7b7 !important;
+}
+.card-crema-2 .widget-title { color: #065f46 !important; }
+.card-crema-2 .widget-icon-box { background-color: #6ee7b7 !important; }
+.card-crema-2 .widget-icon-box i { color: #047857 !important; }
+
+/* 3. Dispositivos: Crema Celeste / Azul Glaciar */
+.card-crema-3 {
+  background-color: #bae6fd !important;
+  border-color: #7dd3fc !important;
+}
+.card-crema-3 .widget-title { color: #075985 !important; }
+.card-crema-3 .widget-icon-box { background-color: #7dd3fc !important; }
+.card-crema-3 .widget-icon-box i { color: #0369a1 !important; }
+
+/* 4. Clientes: Crema Rosa / Fresa Empolvada */
+.card-crema-4 {
+  background-color: #fecdd3 !important;
+  border-color: #fda4af !important;
+}
+.card-crema-4 .widget-title { color: #9f1239 !important; }
+.card-crema-4 .widget-icon-box { background-color: #fda4af !important; }
+.card-crema-4 .widget-icon-box i { color: #be123c !important; }
+
+/* 5. Servicios: Crema Albaricoque / Durazno Cálido */
+.card-crema-5 {
+  background-color: #fed7aa !important;
+  border-color: #fdba74 !important;
+}
+.card-crema-5 .widget-title { color: #9a3412 !important; }
+.card-crema-5 .widget-icon-box { background-color: #fdba74 !important; }
+.card-crema-5 .widget-icon-box i { color: #c2410c !important; }
+
+/* 6. Usuarios: Crema Lavanda / Malva Cálido */
+.card-crema-6 {
+  background-color: #ddd6fe !important;
+  border-color: #c4b5fd !important;
+}
+.card-crema-6 .widget-title { color: #5b21b6 !important; }
+.card-crema-6 .widget-icon-box { background-color: #c4b5fd !important; }
+.card-crema-6 .widget-icon-box i { color: #6d28d9 !important; }
 
 

@@ -17,6 +17,7 @@ class SettingsController {
 		$workshopManager = $this->settingsService->getByShort('workshop_manager');
 		$workshopAddress = $this->settingsService->getByShort('workshop_address');
 		$workshopPhone = $this->settingsService->getByShort('workshop_phone');
+		$coinSymbol = $this->settingsService->getByShort('coin_symbol');
 
 		ViewEngine::render('settings/index.html.twig', [
 			'configs' => $configs,
@@ -24,6 +25,7 @@ class SettingsController {
 			'workshop_manager' => $workshopManager ? $workshopManager->val : '',
 			'workshop_address' => $workshopAddress ? $workshopAddress->val : '',
 			'workshop_phone' => $workshopPhone ? $workshopPhone->val : '',
+			'coin_symbol' => $coinSymbol ? $coinSymbol->val : '$',
 		]);
 	}
 

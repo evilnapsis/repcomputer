@@ -10,7 +10,7 @@
       {% if payment_summary.status == 'paid' %}
         <span class="badge bg-success align-middle fs-6">Pagada</span>
       {% elseif payment_summary.status == 'partial' %}
-        <span class="badge bg-warning text-dark align-middle fs-6">Abonada &middot; saldo ${{ payment_summary.balance|number_format(2, '.', ',') }}</span>
+        <span class="badge bg-warning text-dark align-middle fs-6">Abonada &middot; saldo {{ coin_symbol }}{{ payment_summary.balance|number_format(2, '.', ',') }}</span>
       {% else %}
         <span class="badge bg-danger align-middle fs-6">Sin pagos</span>
       {% endif %}
@@ -118,8 +118,8 @@
                 <tr>
                   <td class="fw-bold">{{ d.getService() ? d.getService().name : '-' }}</td>
                   <td>{{ d.quantity }}</td>
-                  <td>${{ d.price|number_format(2, '.', ',') }}</td>
-                  <td class="fw-bold text-success">${{ (d.price * d.quantity)|number_format(2, '.', ',') }}</td>
+                  <td>{{ coin_symbol }}{{ d.price|number_format(2, '.', ',') }}</td>
+                  <td class="fw-bold text-success">{{ coin_symbol }}{{ (d.price * d.quantity)|number_format(2, '.', ',') }}</td>
                   <td class="text-end">
                     <form action="{{ base_url }}/operation/{{ operation.id }}/delete-detail/{{ d.id }}" method="POST" class="d-inline" onsubmit="return confirm('¿Eliminar este servicio?');">
                       {{ csrf_field() }}
@@ -137,7 +137,7 @@
               <tfoot class="table-light">
                 <tr>
                   <td colspan="3" class="text-end fw-bold">TOTAL ORDEN:</td>
-                  <td class="fw-bold text-success fs-5">${{ operation.total|number_format(2, '.', ',') }}</td>
+                  <td class="fw-bold text-success fs-5">{{ coin_symbol }}{{ operation.total|number_format(2, '.', ',') }}</td>
                   <td></td>
                 </tr>
               </tfoot>
@@ -164,19 +164,19 @@
           <div class="col-md-4">
             <div class="border rounded-3 p-3 text-center h-100">
               <div class="small text-muted fw-bold">TOTAL ORDEN</div>
-              <div class="fs-5 fw-bold">${{ payment_summary.total|number_format(2, '.', ',') }}</div>
+              <div class="fs-5 fw-bold">{{ coin_symbol }}{{ payment_summary.total|number_format(2, '.', ',') }}</div>
             </div>
           </div>
           <div class="col-md-4">
             <div class="border rounded-3 p-3 text-center h-100">
               <div class="small text-muted fw-bold">COBRADO</div>
-              <div class="fs-5 fw-bold text-success">${{ payment_summary.paid|number_format(2, '.', ',') }}</div>
+              <div class="fs-5 fw-bold text-success">{{ coin_symbol }}{{ payment_summary.paid|number_format(2, '.', ',') }}</div>
             </div>
           </div>
           <div class="col-md-4">
             <div class="border rounded-3 p-3 text-center h-100">
               <div class="small text-muted fw-bold">SALDO PENDIENTE</div>
-              <div class="fs-5 fw-bold {% if payment_summary.balance > 0 %}text-danger{% else %}text-success{% endif %}">${{ payment_summary.balance|number_format(2, '.', ',') }}</div>
+              <div class="fs-5 fw-bold {% if payment_summary.balance > 0 %}text-danger{% else %}text-success{% endif %}">{{ coin_symbol }}{{ payment_summary.balance|number_format(2, '.', ',') }}</div>
             </div>
           </div>
         </div>
@@ -184,7 +184,7 @@
         {% if payment_summary.overpaid > 0 %}
           <div class="alert alert-warning py-2 small">
             <i class="bi bi-exclamation-triangle me-1"></i>
-            Los pagos superan por <strong>${{ payment_summary.overpaid|number_format(2, '.', ',') }}</strong> el total de la orden. Revise los abonos o el detalle de servicios.
+            Los pagos superan por <strong>{{ coin_symbol }}{{ payment_summary.overpaid|number_format(2, '.', ',') }}</strong> el total de la orden. Revise los abonos o el detalle de servicios.
           </div>
         {% endif %}
 
@@ -222,7 +222,7 @@
                       {% endif %}
                     </td>
                     <td><small class="text-muted">{{ pay.getUser() ? pay.getUser().name ~ " " ~ pay.getUser().lastname : '-' }}</small></td>
-                    <td class="text-end fw-bold text-success">${{ pay.amount|number_format(2, '.', ',') }}</td>
+                    <td class="text-end fw-bold text-success">{{ coin_symbol }}{{ pay.amount|number_format(2, '.', ',') }}</td>
                     <td class="text-end">
                       <form action="{{ base_url }}/operation/{{ operation.id }}/delete-payment/{{ pay.id }}" method="POST" class="d-inline" onsubmit="return confirm('¿Eliminar este pago de la orden?');">
                         {{ csrf_field() }}
@@ -240,7 +240,7 @@
                 <tfoot class="table-light">
                   <tr>
                     <td colspan="4" class="text-end fw-bold">TOTAL COBRADO:</td>
-                    <td class="text-end fw-bold text-success fs-5">${{ payment_summary.paid|number_format(2, '.', ',') }}</td>
+                    <td class="text-end fw-bold text-success fs-5">{{ coin_symbol }}{{ payment_summary.paid|number_format(2, '.', ',') }}</td>
                     <td></td>
                   </tr>
                 </tfoot>
@@ -265,9 +265,9 @@
         </div>
         <div class="modal-body p-4">
           <div class="alert alert-light border small">
-            Total de la orden: <strong>${{ payment_summary.total|number_format(2, '.', ',') }}</strong><br>
-            Cobrado: <strong class="text-success">${{ payment_summary.paid|number_format(2, '.', ',') }}</strong><br>
-            Saldo pendiente: <strong class="text-danger">${{ payment_summary.balance|number_format(2, '.', ',') }}</strong>
+            Total de la orden: <strong>{{ coin_symbol }}{{ payment_summary.total|number_format(2, '.', ',') }}</strong><br>
+            Cobrado: <strong class="text-success">{{ coin_symbol }}{{ payment_summary.paid|number_format(2, '.', ',') }}</strong><br>
+            Saldo pendiente: <strong class="text-danger">{{ coin_symbol }}{{ payment_summary.balance|number_format(2, '.', ',') }}</strong>
           </div>
           <div class="row g-3">
             <div class="col-md-6">
@@ -318,7 +318,7 @@
             <select name="service_id" id="service_id_select" class="form-select" required>
               <option value="">-- SELECCIONE SERVICIO --</option>
               {% for s in services %}
-                <option value="{{ s.id }}" data-price="{{ s.price }}">{{ s.name }} (${{ s.price|number_format(2, '.', ',') }})</option>
+                <option value="{{ s.id }}" data-price="{{ s.price }}">{{ s.name }} ({{ coin_symbol }}{{ s.price|number_format(2, '.', ',') }})</option>
               {% endfor %}
             </select>
             {% if services|length == 0 %}

@@ -13,11 +13,15 @@ class SettingsService {
 	}
 
 	public function update(array $postData): bool {
-		$campos = ['workshop_name', 'workshop_manager', 'workshop_address', 'workshop_phone'];
+		$campos = ['workshop_name', 'workshop_manager', 'workshop_address', 'workshop_phone', 'coin_symbol'];
 
 		foreach ($campos as $campo) {
 			if (isset($postData[$campo])) {
-				ConfigurationData::updateValByShort($campo, $postData[$campo]);
+				$val = trim($postData[$campo]);
+				if ($campo === 'coin_symbol' && empty($val)) {
+					$val = '$';
+				}
+				ConfigurationData::updateValByShort($campo, $val);
 			}
 		}
 

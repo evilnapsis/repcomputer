@@ -2,6 +2,7 @@
 namespace App\Service;
 
 use DeviceData;
+use DeviceTypeData;
 
 class DeviceService {
 	public function getAll(): array {
@@ -20,7 +21,20 @@ class DeviceService {
 		$device->model = $data['model'] ?? '';
 		$device->year = !empty($data['year']) ? intval($data['year']) : 0;
 		$device->color = $data['color'] ?? '';
-		$device->type = $data['type'] ?? 'Smartphone';
+
+		$typeId = !empty($data['device_type_id']) ? intval($data['device_type_id']) : null;
+		if ($typeId) {
+			$dt = DeviceTypeData::getById($typeId);
+			if ($dt) {
+				$device->device_type_id = $dt->id;
+				$device->type = $dt->name;
+			} else {
+				$device->type = $data['type'] ?? 'Smartphone';
+			}
+		} else {
+			$device->type = $data['type'] ?? 'Smartphone';
+		}
+
 		$device->imei = $data['imei'] ?? '';
 		$device->mac_address = $data['mac_address'] ?? '';
 		$device->capacity = $data['capacity'] ?? '';
@@ -42,7 +56,18 @@ class DeviceService {
 		$device->model = $data['model'] ?? $device->model;
 		$device->year = !empty($data['year']) ? intval($data['year']) : $device->year;
 		$device->color = $data['color'] ?? $device->color;
-		$device->type = $data['type'] ?? $device->type;
+
+		if (!empty($data['device_type_id'])) {
+			$typeId = intval($data['device_type_id']);
+			$dt = DeviceTypeData::getById($typeId);
+			if ($dt) {
+				$device->device_type_id = $dt->id;
+				$device->type = $dt->name;
+			}
+		} elseif (isset($data['type'])) {
+			$device->type = $data['type'];
+		}
+
 		$device->imei = $data['imei'] ?? $device->imei;
 		$device->mac_address = $data['mac_address'] ?? $device->mac_address;
 		$device->capacity = $data['capacity'] ?? $device->capacity;

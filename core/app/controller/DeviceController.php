@@ -2,15 +2,18 @@
 namespace App\Controller;
 
 use App\Service\DeviceService;
+use App\Service\DeviceTypeService;
 use App\Service\ContactService;
 use ViewEngine;
 
 class DeviceController {
 	private $deviceService;
+	private $deviceTypeService;
 	private $contactService;
 
 	public function __construct() {
 		$this->deviceService = new DeviceService();
+		$this->deviceTypeService = new DeviceTypeService();
 		$this->contactService = new ContactService();
 	}
 
@@ -21,7 +24,11 @@ class DeviceController {
 
 	public function new() {
 		$clients = $this->contactService->getClients();
-		ViewEngine::render('devices/new.html.twig', ['clients' => $clients]);
+		$deviceTypes = $this->deviceTypeService->getActive();
+		ViewEngine::render('devices/new.html.twig', [
+			'clients' => $clients,
+			'device_types' => $deviceTypes
+		]);
 	}
 
 	public function create() {
@@ -46,7 +53,12 @@ class DeviceController {
 			exit;
 		}
 		$clients = $this->contactService->getClients();
-		ViewEngine::render('devices/edit.html.twig', ['device' => $device, 'clients' => $clients]);
+		$deviceTypes = $this->deviceTypeService->getActive();
+		ViewEngine::render('devices/edit.html.twig', [
+			'device' => $device,
+			'clients' => $clients,
+			'device_types' => $deviceTypes
+		]);
 	}
 
 	public function update(array $vars) {

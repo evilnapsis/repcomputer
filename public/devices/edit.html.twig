@@ -24,16 +24,17 @@
         </div>
 
         <div class="col-md-4">
-          <label class="form-label fw-bold">Tipo de Dispositivo *</label>
-          <select name="type" class="form-select" required>
-            <option value="Smartphone" {% if device.type == 'Smartphone' %}selected{% endif %}>Smartphone / Teléfono Móvil</option>
-            <option value="Tablet" {% if device.type == 'Tablet' %}selected{% endif %}>Tablet</option>
-            <option value="Consola de Videojuegos" {% if device.type == 'Consola de Videojuegos' %}selected{% endif %}>Consola de Videojuegos (PS5, Xbox, Switch)</option>
-            <option value="Laptop" {% if device.type == 'Laptop' %}selected{% endif %}>Laptop / Portátil</option>
-            <option value="PC Escritorio" {% if device.type == 'PC Escritorio' %}selected{% endif %}>PC de Escritorio / Servidor</option>
-            <option value="Línea Blanca" {% if device.type == 'Línea Blanca' %}selected{% endif %}>Electrodoméstico / Línea Blanca</option>
-            <option value="Smartwatch" {% if device.type == 'Smartwatch' %}selected{% endif %}>Smartwatch / Wearable</option>
-            <option value="Otro" {% if device.type == 'Otro' %}selected{% endif %}>Otro Dispositivo Electrónico</option>
+          <div class="d-flex justify-content-between align-items-center mb-1">
+            <label class="form-label fw-bold mb-0">Tipo de Dispositivo *</label>
+            <a href="{{ base_url }}/device-types" class="small text-decoration-none" title="Gestionar tipos de equipo">
+              <i class="bi bi-gear me-1"></i>Gestionar tipos
+            </a>
+          </div>
+          <select name="device_type_id" class="form-select" required>
+            <option value="">-- Seleccionar Tipo --</option>
+            {% for dt in device_types %}
+              <option value="{{ dt.id }}" {% if (device.device_type_id and device.device_type_id == dt.id) or (device.type == dt.name) %}selected{% endif %}>{{ dt.name }}</option>
+            {% endfor %}
           </select>
         </div>
 

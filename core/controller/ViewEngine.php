@@ -46,6 +46,9 @@ class ViewEngine {
 		$twig = self::init();
 		$twig->addGlobal('curr_user', isset($_SESSION['user_id']) ? UserData::getById($_SESSION['user_id']) : null);
 
+		$coinCfg = ConfigurationData::getByShort('coin_symbol');
+		$twig->addGlobal('coin_symbol', ($coinCfg && !empty($coinCfg->val)) ? $coinCfg->val : '$');
+
 		foreach (['success', 'updated', 'deleted', 'error'] as $key) {
 			$twig->addGlobal('flash_' . $key, $_SESSION[$key] ?? null);
 			unset($_SESSION[$key]);
